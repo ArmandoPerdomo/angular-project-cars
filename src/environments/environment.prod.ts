@@ -1,4 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:3000/' // TODO
+  apiUrl: 'https://project-cars-329218.ue.r.appspot.com',
+  tokenKey: "token",
+  expKey: 'exp'
 };
