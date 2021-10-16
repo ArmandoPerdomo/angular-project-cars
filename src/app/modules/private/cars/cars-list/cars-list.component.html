@@ -1,0 +1,99 @@
+<div fxLayout="column" fxFlex="0 1 auto" fxLayoutGap="1em">
+  <div class="p-2 bg-white" fxLayout="row" fxLayoutAlign="space-between" fxLayoutGap="1em">
+    <h2 class="m-0 font-weight-bold">Bienvenido {{authService.userSessionSync?.name}}</h2>
+    <button mat-raised-button color="primary" (click)="authService.logout()">
+      Cerrar Sesión
+    </button>
+  </div>
+
+  <div fxLayout="column"  fxLayoutGap="1em" class="p-2 m-2 mat-elevation-z1 bg-white">
+    <div fxLayout="column" fxFlex="0 1 auto" fxLayoutGap=".3em">
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <h2 class="title">Automóviles</h2>
+
+        <button mat-button color="primary" (click)="add()">
+          Agregar Automóvil
+        </button>
+      </div>
+      <mat-divider fxFlex></mat-divider>
+    </div>
+
+    <div *ngIf="loading" fxLayout="column" fxFlex fxLayoutAlign="center center" class="my-3">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p>Cargando...</p>
+    </div>
+
+    <div *ngIf="!dataSource.data.length && !loading" fxLayout="column" fxLayoutAlign="center"
+         fxFlex="100%" class="mat-elevation-z2 p-3 rounded position-relative bg-white">
+      <div class="media">
+        <mat-icon class="mr-3 align-self-center" color="primary">info</mat-icon>
+        <div class="media-body">
+          <h5 class="font-weight-bold">Información</h5>
+          <p class="m-0">Todavía no existen registros</p>
+        </div>
+      </div>
+    </div>
+
+    <ng-container *ngIf="dataSource.data.length">
+      <div class="p-3" fxLayout="column" fxFlex="0 1 auto" fxLayoutGap="1em">
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <mat-form-field fxFlex="40%">
+            <mat-label>Filtrar resultados</mat-label>
+            <input matInput (keyup)="applyFilter($event)">
+          </mat-form-field>
+        </div>
+        <table mat-table [dataSource]="dataSource" matSort>
+          <ng-container matColumnDef="brand">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Marca </th>
+            <td mat-cell *matCellDef="let element"> {{element.brand}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="model">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Modelo </th>
+            <td mat-cell *matCellDef="let element"> {{element.model}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="color">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Color </th>
+            <td mat-cell *matCellDef="let element"> {{element.color}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="admissionDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Admisión </th>
+            <td mat-cell *matCellDef="let element"> {{element.admissionDate | momentFormat: 'unix': 'DD/MM/YYYY'}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="driver">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Conductor </th>
+            <td mat-cell *matCellDef="let element"> {{element.driver}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="active">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Activo </th>
+            <td mat-cell *matCellDef="let element"> {{element.active ? 'Sí' : 'No' }} </td>
+          </ng-container>
+
+
+
+          <ng-container matColumnDef="opts">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button matTooltip="Actualizar" (click)="update(element)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button matTooltip="Eliminar" (click)="delete(element) ">
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+        </table>
+        <mat-paginator [length]="dataSource.data.length" [pageSizeOptions]="[25, 50]" pageSize="25" showFirstLastButtons>
+        </mat-paginator>
+      </div>
+    </ng-container>
+  </div>
+
+</div>

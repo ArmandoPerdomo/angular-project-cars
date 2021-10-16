@@ -1,0 +1,52 @@
+<h1 mat-dialog-title>{{(!data ? 'Agregar' : 'Editar')}} Automóvil</h1>
+
+<form [formGroup]="form" mat-dialog-content fxLayout="column">
+  <mat-form-field>
+    <mat-label>Marca</mat-label>
+    <input matInput type="text" formControlName="brand">
+    <mat-error>Este campo es requerido</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Modelo</mat-label>
+    <input matInput type="text" formControlName="model">
+    <mat-error>Este campo es requerido</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Color</mat-label>
+    <input matInput type="text" formControlName="color">
+    <mat-error>Este campo es requerido</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Conductor</mat-label>
+    <input matInput type="text" formControlName="driver">
+    <mat-error>Este campo es requerido</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Fecha de Admisión</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="admissionDate">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error>Este campo es requerido</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Estado</mat-label>
+    <mat-select formControlName="active">
+      <mat-option [value]="true">Activo</mat-option>
+      <mat-option [value]="false">Inactivo</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</form>
+
+<div mat-dialog-actions fxLayoutAlign="center center" fxLayoutGap="1em">
+  <button mat-button mat-dialog-close>Cerrar</button>
+  <button mat-button (click)="save()" [disabled]="loading || form.invalid">
+    Guardar
+    <mat-spinner *ngIf="loading" diameter="15" class="d-inline-flex"></mat-spinner>
+  </button>
+</div>

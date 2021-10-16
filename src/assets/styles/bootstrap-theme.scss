@@ -1,0 +1,13 @@
+// Spacers
+$spacer: 1rem;
+$spacers: ();
+$spacers: map-merge(
+    (
+      6: ($spacer * 4.5), // 72 pixeles
+    ),
+    $spacers
+);
+
+$font-weight-bold: 600;
+
+@import "node_modules/bootstrap/scss/bootstrap";

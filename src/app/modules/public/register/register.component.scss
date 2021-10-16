@@ -1,0 +1,13 @@
+:host{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  background: #9F303F;
+  background: linear-gradient(135deg, #9F303F 0%, #713E6F 47%, #364969 100%);
+
+  .p-2{
+    padding: 2em;
+  }
+}

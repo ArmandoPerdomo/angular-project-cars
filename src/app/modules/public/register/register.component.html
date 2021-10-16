@@ -1,0 +1,49 @@
+<div class="h-100" fxLayout="row" fxFlex="100%" fxLayoutAlign="center center">
+  <div fxLayout="column" fxFlex="25%" fxFlex.lt-md="90%" fxLayoutGap="3em">
+
+    <div fxLayout="column" fxFlex="0 1 auto" fxLayoutAlign="center center">
+      <img src="assets/angular-logo.png" style="width: 250px" alt="logo">
+    </div>
+
+    <div class="bg-white mat-elevation-z2 rounded p-2" fxLayout="row" fxFlex>
+      <form [formGroup]="form" fxLayout="column" fxLayoutGap=".5em" fxFlex>
+        <h2 class="text-primary text-center">Registro de Usuario</h2>
+
+        <mat-form-field>
+          <mat-label>Nombre:</mat-label>
+          <input matInput formControlName="name">
+          <mat-error>Este campo es requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Email:</mat-label>
+          <input matInput type="email" formControlName="email">
+          <mat-error>
+            <span *ngIf="email.hasError('email')">El correo es inválido</span>
+            <span *ngIf="email.hasError('required')">Este campo es requerido</span>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Contraseña:</mat-label>
+          <input matInput formControlName="password" [type]="hidePass ? 'password': 'text'">
+          <button matSuffix type="button" mat-icon-button (click)="hidePass = !hidePass">
+            <mat-icon>{{hidePass ? 'visibility': 'visibility_off'}}</mat-icon>
+          </button>
+          <mat-error>
+            <span *ngIf="password.hasError('required')">Este campo es requerido</span>
+          </mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="accent" type="submit" [disabled]="form.invalid || loading" (click)="save()">
+          Registrarse
+          <mat-spinner diameter="15" color="accent" class="d-inline-flex" *ngIf="loading"></mat-spinner>
+        </button>
+
+        <button mat-raised-button color="primary" type="button" routerLink="../login">
+          Ir al Login
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
